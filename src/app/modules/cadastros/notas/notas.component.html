@@ -13,7 +13,7 @@
         <div fxLayout="row" fxLayoutGap="16px"> 
           <mat-form-field fxFlex [appearance]="'outline'">
             <mat-label>Selecione o Bimestre Correspondente</mat-label>
-            <mat-select  formControlName="idbimestre">
+            <mat-select  formControlName="idbimestre" (selectionChange)="buscarAvaliacao($event.value)">
               <mat-option [value]=itemb.id *ngFor="let itemb of listaBimestre">{{itemb.id}} - {{itemb.desbimestre}} de {{itemb.ano}}</mat-option>
             </mat-select>
             <mat-error>{{idbimestre!.errors | erro}}</mat-error>

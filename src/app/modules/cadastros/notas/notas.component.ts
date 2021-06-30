@@ -26,13 +26,21 @@ export class NotasComponent implements OnInit {
   public url2: string;
   public url_ler: string;
   public cont: number = 0;
-
+  public cont_not: number = 0;
+  public contAv: number = 0;
+  public contAv_not: number = 0;
   public notas: Notas | undefined;
 
   public listaAvaliacao: Avaliacao[] = [];
+  public listaAvaliacaoAux: Avaliacao[] = [];
   public listaBimestre: Bimestre[] = [];
   public listaAlunos: Alunos[] = [];
   public listaNotas: Notas[] = [];
+  public listaNotasAv: Notas[] = [];
+  public listaBimestreAux: Bimestre[] = [];
+  public bimestreaux: Bimestre | undefined;
+  public avaliacao: Bimestre | undefined;
+  public aval_exist: boolean = false;
 
   public registroId: number = 0;
   private subscription!: Subscription;
@@ -60,7 +68,7 @@ export class NotasComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.buscarAvaliacao();
+    this.buscarAvaliacao(0);
     this.buscarAlunos();
     this.subscription = this.route.params.subscribe(params => {
       // tslint:disable-next-line: no-string-literal
@@ -125,28 +133,62 @@ export class NotasComponent implements OnInit {
     }));
   }
 
-  public lerTodos(): Observable<Notas[]> {
-    return this.http.get<Notas[]>(this.url_ler + '/').pipe(map((item: any[]) => {
-      return item;
-    }));
-  }
-
   public buscarTodosAvaliacao(): Observable<Avaliacao[]> {
     return this.http.get<Avaliacao[]>(this.url).pipe(map((item: Avaliacao[]) => {
       return item;
     }));
   }
 
-  private buscarAvaliacao() {
+  public buscarAvaliacao(id: number) {
     // tslint:disable-next-line: deprecation
-    this.buscarTodosAvaliacao().subscribe((registro: Avaliacao[]) => {
-      this.listaAvaliacao = registro;
-      console.log(registro);
-    }, error => {
-      console.error(error);
-      alert('Deu Erro na hora de Carregar Totos os itens');
-    });
+    const descr = id;
+    console.log(descr);
+    if (descr === 0) {
+      this.buscarTodosAvaliacao().subscribe((registro: Avaliacao[]) => {
+        this.listaAvaliacao = registro;
+        console.log(registro);
+      }, error => {
+        console.error(error);
+        alert('Deu Erro na hora de Carregar Totos os itens');
+      });
+    } else {
+      this.listaAvaliacao = [];
+      this.buscarTodosAvaliacao().subscribe((registro: Avaliacao[]) => {
+        this.listaAvaliacaoAux = registro;
+        console.log(registro);
+        this.buscarTodasNotas().subscribe((registro_nota: Notas[]) => {
+          this.listaNotasAv = registro_nota;
+          for (this.contAv = 0; this.contAv < this.listaAvaliacaoAux.length; this.contAv++) {
+
+            this.aval_exist = false;
+
+            for (this.contAv_not = 0; this.contAv_not < this.listaNotasAv.length; this.contAv_not++) {
+              if ((descr === this.listaNotasAv[this.contAv_not].idbimestre) &&
+                (this.listaAvaliacaoAux[this.contAv].id === this.listaNotasAv[this.contAv_not].idavaliacao)) {
+                this.aval_exist = true;
+                this.contAv_not = this.listaNotasAv.length;
+              }
+            }
+
+            if (!this.aval_exist) {
+              this.avaliacao = this.listaAvaliacaoAux[this.contAv];
+              this.listaAvaliacao.push(this.avaliacao);
+            }
+          }
+        }, error => {
+          console.error(error);
+          alert('Deu Erro na hora de validar Avaliação');
+        });
+
+      }, error => {
+        console.error(error);
+        alert('Deu Erro na hora de Carregar Totos os itens');
+      });
+
+    }
   }
+
+
 
   public buscarTodosAlunos(): Observable<Alunos[]> {
     return this.http.get<Alunos[]>(this.url1).pipe(map((item: Alunos[]) => {
@@ -173,7 +215,7 @@ export class NotasComponent implements OnInit {
   }
 
   public buscarTodasNotas(): Observable<Notas[]> {
-    return this.http.get<Notas[]>(this.url1).pipe(map((item: Notas[]) => {
+    return this.http.get<Notas[]>(this.url_ler + '/').pipe(map((item: Notas[]) => {
       return item;
     }));
   }
@@ -181,22 +223,48 @@ export class NotasComponent implements OnInit {
   public buscarBimestrePorAluno(id: number) {
     // tslint:disable-next-line: deprecation
     const descr = id;
-
     console.log(descr);
     this.buscarTodosBimestrePorAluno(descr).subscribe((registro: Bimestre[]) => {
-      this.listaBimestre = registro;
-      if (this.listaBimestre.length === 0) {
+      this.listaBimestreAux = registro;
+      console.log(registro);
+      if (this.listaBimestreAux.length === 0) {
         alert('Nenhum Bimestre Cadastrado Para o Aluno');
       }
       else {
-        for (this.cont = 0; this.cont < this.listaBimestre.length; this.cont++) {
+        this.buscarTodasNotas().subscribe((registro_nota: Notas[]) => {
+          this.listaNotas = registro_nota;
 
+          this.listaBimestre = [];
+
+          for (this.cont = 0; this.cont < this.listaBimestreAux.length; this.cont++) {
+            this.contador = 0;
+
+            for (this.cont_not = 0; this.cont_not < this.listaNotas.length; this.cont_not++) {
+              if (this.listaBimestreAux[this.cont].id === this.listaNotas[this.cont_not].idbimestre) {
+                this.contador++;
+                console.log(this.contador);
+              }
+            }
+
+            if (3 >= this.contador) {
+              this.bimestreaux = this.listaBimestreAux[this.cont];
+              this.listaBimestre.push(this.bimestreaux);
+            }
           }
+          console.log(this.listaBimestre);
+          if (this.listaBimestre.length === 0) {
+            alert('Nenhum Bimestre Cadastrado Para o Aluno Atualmente');
+          }
+
+        }, error => {
+          console.error(error);
+          alert('Deu Erro na hora de validar Bimestre');
+        });
       }
-      console.log(registro);
     }, error => {
       console.error(error);
       alert('Deu Erro na hora de Carregar Totos os itens');
     });
   }
+
 }

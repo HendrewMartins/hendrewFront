@@ -18,6 +18,8 @@ export class PesquisaboletimComponent implements OnInit {
 
     public dataSource: any = [];
 
+    public registroAno: number = 2021;
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
