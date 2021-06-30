@@ -1,0 +1,41 @@
+<form [formGroup]="form" #fr="ngForm" >
+
+    <app-crud [form]="fr" titulo="Bimestre" [api]="service">
+      <div fxLayout="column" fxLayoutGap="16px">
+        <div fxLayout="row" fxLayoutGap="16px">
+          <mat-form-field appearance="fill">
+            <mat-label>Selecione o Bimestre</mat-label>
+            <mat-select formControlName="bimestre" (selectionChange)="validaBimestre($event.value)">
+              <mat-option [value]=1>1º Bimestre</mat-option>
+              <mat-option [value]=2>2º Bimestre</mat-option>
+              <mat-option [value]=3>3º Bimestre</mat-option>
+              <mat-option [value]=4>4º Bimestre</mat-option>
+            </mat-select>
+            <mat-error>{{bimestre!.errors | erro}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field [appearance]="'outline'">
+            <mat-label>Ano</mat-label>
+            <input matInput (focusout)="validaAno()" type="number" formControlName="ano">
+            <mat-error>{{ano!.errors | erro}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex [appearance]="'outline'">
+            <mat-label>Faltas</mat-label>
+            <input matInput type="number" formControlName="faltas">
+            <mat-error>{{faltas!.errors | erro}}</mat-error>
+          </mat-form-field>
+  
+        </div>
+        <div fxLayout="row" fxLayoutGap="16px"> 
+          <mat-form-field fxFlex [appearance]="'outline'">
+            <mat-label>Selecione o Aluno</mat-label>
+            <mat-select formControlName="idAlunos" (selectionChange)="validaAluno($event.value)">
+              <mat-option [value]="item.id" *ngFor="let item of listaAlunos">{{item.nome}}</mat-option>
+            </mat-select>
+            <mat-error>{{idAlunos!.errors | erro}}</mat-error>
+          </mat-form-field>
+        </div>    
+      </div> 
+    </app-crud>
+  </form>
