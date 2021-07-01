@@ -8,9 +8,9 @@ describe('NotasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotasComponent ]
+      declarations: [NotasComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

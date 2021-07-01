@@ -106,7 +106,7 @@ export class BimestreComponent implements OnInit {
       return item;
     }));
   }
- 
+
 
   public validaBimestreExistente(id_aluno: number, id_bimestre: number, ano_escol: number) {
     if ((id_aluno > 0) && (id_bimestre > 0) && (ano_escol > 1999)) {

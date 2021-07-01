@@ -1,27 +1,34 @@
 <mat-card class="tela">
-<mat-card-header>
-    <mat-card-title>Boletim</mat-card-title>
-    <mat-card-subtitle>
-        <span>{{registroAno}}</span>
-    </mat-card-subtitle>
-</mat-card-header>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <mat-card-header>
+        <mat-card-title>Boletim</mat-card-title>
+        <mat-card-subtitle>
+            <span>{{registroAno}}</span>
+        </mat-card-subtitle>
 
-    <ng-container *ngFor="let col of colunas" [matColumnDef]="col.nome">
-        <th mat-header-cell *matHeaderCellDef>{{col.label}}</th>
-        <td mat-cell *matCellDef="let element"> {{element[col.nome]}} </td>
-    </ng-container>
+        <div class="label-float">
+            <input type="text" required="" placeholder="2021" type="number" [(ngModel)]="registroAno"
+                (keypress)="buscarBoletim($event)" [ngModelOptions]="{standalone: true} ">
+            <label>Digite o Ano</label>
+        </div>
 
-    <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-            <div fxLayout="row" fxLayoutAlign="end center">
-               
-            </div>
-        </td>
-    </ng-container>
+    </mat-card-header>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+        <ng-container *ngFor="let col of colunas" [matColumnDef]="col.nome">
+            <th mat-header-cell *matHeaderCellDef>{{col.label}}</th>
+            <td mat-cell *matCellDef="let element"> {{element[col.nome]}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <div fxLayout="row" fxLayoutAlign="end center">
+
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </mat-card>

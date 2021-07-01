@@ -7,6 +7,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { PesquisaboletimComponent } from './pesquisaboletim.component';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
     imports: [
@@ -17,6 +20,8 @@ import { PesquisaboletimComponent } from './pesquisaboletim.component';
         MatButtonModule,
         MatIconModule,
         FlexLayoutModule,
+        MatSelectModule,
+        FormsModule
     ],
     exports: [],
     declarations: [PesquisaboletimComponent],

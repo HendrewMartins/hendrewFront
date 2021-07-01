@@ -12,7 +12,7 @@ import { PesquisaConfig } from './models/pesquisa-config';
 
 export class PesquisaComponent implements OnInit {
 
-    public displayedColumns:any = [];
+    public displayedColumns: any = [];
 
     public colunas: ColunaConfig[];
 

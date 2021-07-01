@@ -18,9 +18,6 @@ export class CrudComponent implements OnInit, OnDestroy {
 
     @Input() public api!: Api<any>;
 
-
-
-
     public registroId: number = 0;
 
     private subscription!: Subscription;

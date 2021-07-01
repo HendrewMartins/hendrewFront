@@ -8,9 +8,9 @@ describe('BoletimComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoletimComponent ]
+      declarations: [BoletimComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

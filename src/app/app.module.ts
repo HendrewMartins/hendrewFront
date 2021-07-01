@@ -28,7 +28,7 @@ import { FormularioModule } from './modules/formulario/formulario.module';
     FormularioModule,
   ],
   providers: [
-    
+
   ],
   bootstrap: [AppComponent]
 })

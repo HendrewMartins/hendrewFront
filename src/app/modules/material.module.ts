@@ -22,7 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
         MatInputModule,
         MatFormFieldModule,
         MatSelectModule,
-        MatMenuModule, 
+        MatMenuModule,
     ],
     exports: [
         MatToolbarModule,
@@ -37,7 +37,7 @@ import { MatMenuModule } from '@angular/material/menu';
         MatMenuModule,
     ],
     declarations: [
-  ]
+    ]
 })
 export class MaterialModule {
 

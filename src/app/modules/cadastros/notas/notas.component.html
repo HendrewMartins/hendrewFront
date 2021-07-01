@@ -1,38 +1,40 @@
-<form [formGroup]="form" #fr="ngForm" >
-    <app-crud [form]="fr" titulo="Notas" [api]="service">
-      <div fxLayout="column" fxLayoutGap="16px">
-        <div fxLayout="row" fxLayoutGap="16px"> 
-          <mat-form-field fxFlex [appearance]="'outline'">
-            <mat-label>Selecione o Aluno</mat-label>
-            <mat-select  formControlName="aluno" (selectionChange)="buscarBimestrePorAluno($event.value)">
-              <mat-option *ngFor="let item of listaAlunos" [value]="item.id">{{item.nome}}</mat-option>
-            </mat-select>
-            <mat-error>{{aluno!.errors | erro}}</mat-error>
-          </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutGap="16px"> 
-          <mat-form-field fxFlex [appearance]="'outline'">
-            <mat-label>Selecione o Bimestre Correspondente</mat-label>
-            <mat-select  formControlName="idbimestre" (selectionChange)="buscarAvaliacao($event.value)">
-              <mat-option [value]=itemb.id *ngFor="let itemb of listaBimestre">{{itemb.id}} - {{itemb.desbimestre}} de {{itemb.ano}}</mat-option>
-            </mat-select>
-            <mat-error>{{idbimestre!.errors | erro}}</mat-error>
-          </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutGap="16px">
-          <mat-form-field fxFlex [appearance]="'outline'">
-            <mat-label>Selecione a Avaliação</mat-label>
-            <mat-select  formControlName="idavaliacao">
-              <mat-option [value]="item1.id" *ngFor="let item1 of listaAvaliacao">{{item1.descricao}} - {{item1.peso}}%</mat-option>
-            </mat-select>
-            <mat-error>{{idavaliacao!.errors | erro}}</mat-error>  
-          </mat-form-field>
-          <mat-form-field fxFlex [appearance]="'outline'">
-            <mat-label>Nota</mat-label>
-            <input matInput type="number"  formControlName="notas">
-            <mat-error>{{nota!.errors | erro}}</mat-error>
-          </mat-form-field> 
-        </div>     
-      </div> 
-    </app-crud>
-  </form>
+<form [formGroup]="form" #fr="ngForm">
+  <app-crud [form]="fr" titulo="Notas" [api]="service">
+    <div fxLayout="column" fxLayoutGap="16px">
+      <div fxLayout="row" fxLayoutGap="16px">
+        <mat-form-field fxFlex [appearance]="'outline'">
+          <mat-label>Selecione o Aluno</mat-label>
+          <mat-select formControlName="aluno" (selectionChange)="buscarBimestrePorAluno($event.value)">
+            <mat-option *ngFor="let item of listaAlunos" [value]="item.id">{{item.nome}}</mat-option>
+          </mat-select>
+          <mat-error>{{aluno!.errors | erro}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="16px">
+        <mat-form-field fxFlex [appearance]="'outline'">
+          <mat-label>Selecione o Bimestre Correspondente</mat-label>
+          <mat-select formControlName="idbimestre" (selectionChange)="buscarAvaliacao($event.value)">
+            <mat-option [value]=itemb.id *ngFor="let itemb of listaBimestre">{{itemb.id}} - {{itemb.desbimestre}} de
+              {{itemb.ano}}</mat-option>
+          </mat-select>
+          <mat-error>{{idbimestre!.errors | erro}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="16px">
+        <mat-form-field fxFlex [appearance]="'outline'">
+          <mat-label>Selecione a Avaliação</mat-label>
+          <mat-select formControlName="idavaliacao">
+            <mat-option [value]="item1.id" *ngFor="let item1 of listaAvaliacao">{{item1.descricao}} - {{item1.peso}}%
+            </mat-option>
+          </mat-select>
+          <mat-error>{{idavaliacao!.errors | erro}}</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex [appearance]="'outline'">
+          <mat-label>Nota</mat-label>
+          <input matInput type="number" formControlName="notas">
+          <mat-error>{{nota!.errors | erro}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </app-crud>
+</form>

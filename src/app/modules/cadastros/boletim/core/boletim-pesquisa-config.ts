@@ -37,5 +37,5 @@ export const PESQUISA_BOLETIM_CONFIG: PesquisaConfig = {
     ],
     ano: '2021',
     pathApi: 'boletim',
-    
+
 };
